@@ -1,4 +1,4 @@
-package com.example.ggyy.phoneguard;
+package com.example.ggyy.phoneguard.activity;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -7,6 +7,8 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.ggyy.phoneguard.R;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -62,6 +64,7 @@ public class SplashActivity extends AppCompatActivity {
                     conn.setReadTimeout(5000);
                     int responseCode = conn.getResponseCode();
                     if (responseCode ==200){
+                        //建立输入流解析 使用工具xUtils  建立StreamUtils
 
 
                     }else {
