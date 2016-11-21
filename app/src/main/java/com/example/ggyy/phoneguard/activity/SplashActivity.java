@@ -1,9 +1,11 @@
 package com.example.ggyy.phoneguard.activity;
 
 
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
@@ -42,8 +44,32 @@ public class SplashActivity extends AppCompatActivity {
     private int mversionCode;
     private String desc;
     private String versionName;
+    private Activity act = this;
+    private Handler mhandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case CODE_UPDATE_DIALOG:
+                    showUpDateDilog();
+                case CODE_ENTER_HOME:
+                    enterHome();
+                case CODE_NET_ERROR:
 
 
+
+
+            }
+
+
+            super.handleMessage(msg);
+        }
+    };
+
+    private void enterHome() {
+    }
+
+    private void showUpDateDilog() {
+    }
 
 
     @Override
