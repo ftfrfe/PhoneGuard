@@ -78,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
     };
 
     private void enterHome() {
-         Intent intent = new Intent(this,HomeActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         act.finish();
 
@@ -111,8 +111,9 @@ public class SplashActivity extends AppCompatActivity {
 
         new Thread() {
 
-            private HttpURLConnection conn = null;
             Message message = Message.obtain();
+            private HttpURLConnection conn = null;
+
             @Override
             public void run() {
 
@@ -150,8 +151,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
 
 
-                    }
-                    else {
+                    } else {
                         System.out.println("没联网的情况下进入主机面");
                         message.what = CODE_ENTER_HOME;
                     }
@@ -205,6 +205,7 @@ public class SplashActivity extends AppCompatActivity {
             PackageInfo info = packageManager.getPackageInfo(getPackageName(), 0);
             versionName = info.versionName;
             versionCode = info.versionCode;
+
             System.out.println("aaaaaaaaaaaaaaaaaa" + versionName + versionCode);
 
         } catch (PackageManager.NameNotFoundException e) {
