@@ -122,8 +122,8 @@ public class SplashActivity extends AppCompatActivity {
                     System.out.println("获取网址前");
                     URL url = new URL(getString(R.string.URL));
                     //建立HTTP连接
-                    System.out.println("获取网址后");
-                    conn = (HttpURLConnection) url.getContent();
+                    System.out.println("获取网址后" + url);
+                    conn = (HttpURLConnection) url.openConnection();
                     //conn 设置链接方式 设置 链接超时 超时读取 获取链接码
                     System.out.println("设置conn");
                     conn.setRequestMethod("GET");
