@@ -1,6 +1,7 @@
 package com.example.ggyy.phoneguard.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -77,6 +78,16 @@ public class HomeActivity extends Activity {
     }
 
     private void showPasswordSetDialog() {
+        /**
+         * 1.Alertdialog.builder对象，将activity穿进去
+         * 2.builder.creat()   创建dialog对象
+         * 3.View.inflate（this,R.layout.dialog_set_password,null） 返回view
+         * 4.dialog.setView(view,0,0,0,0) 设置边距为0
+         * 5.
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.create();
+       // View.inflate(this,R)
 
 
     }
