@@ -80,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
     private void enterHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        System.out.println("进入主页面，关闭闪屏");
         act.finish();
 
 
