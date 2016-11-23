@@ -175,17 +175,23 @@ public class SplashActivity extends AppCompatActivity {
                     //获取当前时间 等待机制
                     System.out.println("进入finally等待1S");
                     long timeEnd = System.currentTimeMillis();
-                    if (timeEnd - timeStart < 1000) {
+                    long timeUsed = timeEnd-timeStart;
+                    System.out.println("链接用时"+timeUsed);
+                    System.out.println("message+aaaaaaaaaaaa"+message);
+                    if (timeUsed < 1000) {
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(1000-timeUsed);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        System.out.println("设置睡眠1s");
 
-                        mhandler.sendMessage(message);
-                        if (conn != null) {
-                            conn.disconnect();
-                        }
+                    }
+                    mhandler.sendMessage(message);
+                    System.out.println("发送message"+message);
+                    if (conn != null) {
+                        conn.disconnect();
+                        System.out.println("关闭链接");
                     }
 
                 }

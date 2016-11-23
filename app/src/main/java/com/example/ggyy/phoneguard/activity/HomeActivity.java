@@ -7,15 +7,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ggyy.phoneguard.R;
+import com.example.ggyy.phoneguard.utils.MD5Utils;
+import com.example.ggyy.phoneguard.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +39,7 @@ public class HomeActivity extends Activity {
             R.drawable.home_taskmanager, R.drawable.home_netmanager,
             R.drawable.home_trojan, R.drawable.home_sysoptimize,
             R.drawable.home_tools, R.drawable.home_settings};
+    private Activity act = this;
 
     /**
      * 1.获取数据共享对象SharePreferences  mPerf （getSharedPreferences("congif",MODE_PREIVATE)）
@@ -87,6 +93,7 @@ public class HomeActivity extends Activity {
     }
 
     private void showPasswordInputDialog() {
+
     }
 
     private void showPasswordSetDialog() {
@@ -98,10 +105,45 @@ public class HomeActivity extends Activity {
          * 5.
          */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        AlertDialog dialog = builder.create();
-        View view = View.inflate(this, R.layout.dailog_input_password, null);
+        final AlertDialog dialog = builder.create();
+        View view = View.inflate(this, R.layout.dailog_set_password, null);
+        dialog.setView(view,0,0,0,0);
+        final EditText etPassword= (EditText) view.findViewById(R.id.et_password);
+        final EditText etPassworConfirm = (EditText) view.findViewById(R.id.et_password_confirm);
+
+        Button btnOk = (Button) view.findViewById(R.id.btn_ok);
+        Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+
+        btnOk.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password = etPassword.getText().toString();
+                String passwordConfirm = etPassworConfirm.getText().toString();
+
+                if(!TextUtils.isEmpty(password) && !passwordConfirm.isEmpty()){
+                    if (password.equals(passwordConfirm)){
+                        sharedPreferences.edit().putString("password",MD5Utils.encode(password)).commit();
+                        ToastUtils.showToast(act,"密码提交成功");
+                        dialog.dismiss();
+                    }
+                    else {
+                        ToastUtils.showToast(act,"两次密码不同");
+                    }
 
 
+                    }
+                else {
+                    ToastUtils.showToast(act,"输入框内容不能为空!");
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     class HomeAdapter extends BaseAdapter {
