@@ -3,12 +3,14 @@ package com.example.ggyy.phoneguard.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -76,6 +78,7 @@ public class SplashActivity extends AppCompatActivity {
 
         }
     };
+    private SharedPreferences mpref;
 
     private void enterHome() {
         Intent intent = new Intent(this, HomeActivity.class);
@@ -98,7 +101,18 @@ public class SplashActivity extends AppCompatActivity {
         tvVersion.setText("版本名" + getVersionName());
         versionCode = getVersionCode();
         // ToastUtils.showToast(act,"aaaa");
-        CheckVersion();
+        mpref = getSharedPreferences("config", MODE_PRIVATE);
+        boolean mprefBoolean = mpref.getBoolean("auto_update", true);
+        if (mprefBoolean){
+            CheckVersion();
+        }else {
+            mhandler.sendEmptyMessageDelayed(CODE_ENTER_HOME,1000);
+        }
+        AlphaAnimation anim = new AlphaAnimation(0.3f, 1f);
+        anim.setDuration(2000);
+        rlRoot.startAnimation(anim);
+
+
 
 
     }

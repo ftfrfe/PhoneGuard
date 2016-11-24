@@ -7,10 +7,7 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.example.ggyy.phoneguard.R;
-
-import butterknife.Bind;
 
 
 /**
@@ -41,12 +38,14 @@ public class SettingItemView extends RelativeLayout {
         mDescOff = attrs.getAttributeValue(NAMESPACE, "desc_off");
         initView();
     }
+
     public SettingItemView(Context context) {
         super(context);
         initView();
     }
+
     private void initView() {
-        View.inflate(getContext(), R.layout.view_setting_item, this);
+       View view =  View.inflate(getContext(), R.layout.view_setting_item, this);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvDesc = (TextView) findViewById(R.id.tv_desc);
         cbStatus = (CheckBox) findViewById(R.id.cb_status);
@@ -54,17 +53,20 @@ public class SettingItemView extends RelativeLayout {
         setTitle(mTitle);
 
     }
+
     public void setTitle(String title) {
         tvTitle.setText(title);
     }
-    public boolean isChecked(){
-        return  cbStatus.isChecked();
+
+    public boolean isChecked() {
+        return cbStatus.isChecked();
     }
-    public void setChecked(boolean check){
+
+    public void setChecked(boolean check) {
         cbStatus.setChecked(check);
-        if(check){
+        if (check) {
             setDesc(mDescOn);
-        }else {
+        } else {
             setDesc(mDescOff);
         }
     }
