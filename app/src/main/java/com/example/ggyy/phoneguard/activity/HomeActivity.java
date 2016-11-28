@@ -68,7 +68,9 @@ public class HomeActivity extends Activity {
                     case 0://手机防盗
                         showPasswordDialog();
                         break;
-
+                    case 1://通讯卫士
+                        startActivity(new Intent(act,CallMsmSafeActivity.class));
+                        break;
                     case 8://设置中心
                         startActivity(new Intent(HomeActivity.this, SettingActivity.class));
 

@@ -39,7 +39,8 @@
 
         <activity android:name=".activity.Setup2Activity" />
         <activity android:name=".activity.Setup3Activity" />
-        <activity android:name=".activity.Setup4Activity"></activity>
+        <activity android:name=".activity.Setup4Activity" />
+        <activity android:name=".activity.CallMsmSafeActivity"></activity>
     </application>
 
 </manifest>

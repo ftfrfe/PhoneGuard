@@ -2,19 +2,24 @@ package com.example.ggyy.phoneguard.activity;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.example.ggyy.phoneguard.R;
+import com.example.ggyy.phoneguard.service.AddressService;
+import com.example.ggyy.phoneguard.utils.ServiceStatusUtils;
 import com.example.ggyy.phoneguard.view.SettingItemView;
 
 
 public class SettingActivity extends Activity {
 
+    private static final String[] items = {"半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿"};
     private SharedPreferences mPref;
-    private SettingItemView sivUpdate;
+    private SettingItemView sivUpdate;//设置升级选项框
+    private SettingItemView sivAddress;// 设置地址归属
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,27 @@ public class SettingActivity extends Activity {
      * 初始化归属地开关
      */
     private void initAddressView() {
+        sivAddress = (SettingItemView) findViewById(R.id.siv_address);
+        boolean serviceRunning = ServiceStatusUtils.isServiceRunning(this, "com.example.ggyy.phoneguard.service.AddressService");
+        if (serviceRunning) {
+            sivAddress.setChecked(true);
+        } else {
+            sivAddress.setChecked(false);
+        }
 
+        sivAddress.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sivAddress.isChecked()) {
+                    sivAddress.setChecked(false);
+                    stopService(new Intent(SettingActivity.this, AddressService.class));
+
+                } else {
+                    sivAddress.setChecked(true);
+                    startService(new Intent(SettingActivity.this, AddressService.class));
+                }
+            }
+        });
 
     }
 
@@ -64,10 +89,10 @@ public class SettingActivity extends Activity {
             public void onClick(View view) {
                 if (sivUpdate.isChecked()) {
                     sivUpdate.setChecked(false);
-                    mPref.edit().putBoolean("auto_update",false).commit();
+                    mPref.edit().putBoolean("auto_update", false).commit();
                 } else {
                     sivUpdate.setChecked(true);
-                    mPref.edit().putBoolean("auto_update",true).commit();
+                    mPref.edit().putBoolean("auto_update", true).commit();
                 }
             }
         });
