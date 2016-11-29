@@ -14,7 +14,7 @@ import java.sql.SQLOutput;
 
 public class AddressService extends Service {
     private TelephonyManager tm;
-    private MyListener listener;
+  //  private MyListener listener;
     private OutCallReceiver receiver;
     private WindowManager mWM;
     private View view;
@@ -37,8 +37,8 @@ public class AddressService extends Service {
         mPref = getSharedPreferences("config", MODE_PRIVATE);
         tm = (TelephonyManager) getSystemService(TELECOM_SERVICE);
         System.out.println("号码获取服务开启了");
-        listener = new MyListener();
-        tm.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+    //    listener = new MyListener();
+    //    tm.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
 
     }
 
@@ -53,7 +53,7 @@ public class AddressService extends Service {
         System.out.println("号码获取服务关闭了");
     }
 
-    class MyListener extends PhoneStateListener {
+   /* class MyListener extends PhoneStateListener {
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
             switch(state){
@@ -63,7 +63,7 @@ public class AddressService extends Service {
             };
             super.onCallStateChanged(state, incomingNumber);
         }
-    }
+    }*/
 
     private class OutCallReceiver {
     }

@@ -40,7 +40,14 @@
         <activity android:name=".activity.Setup2Activity" />
         <activity android:name=".activity.Setup3Activity" />
         <activity android:name=".activity.Setup4Activity" />
-        <activity android:name=".activity.CallMsmSafeActivity"></activity>
+        <activity android:name=".activity.CallMsmSafeActivity" />
+
+        <service
+            android:name=".service.CallSafeService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".activity.DragViewActivity"></activity>
     </application>
 
 </manifest>

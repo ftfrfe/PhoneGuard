@@ -20,21 +20,30 @@
 
         />
 
-          <com.example.ggyy.phoneguard.view.SettingItemView
-              android:id="@+id/siv_address"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              ggyy:desc_off="归属地显示已经关闭"
-              ggyy:desc_on="归属地显示已经开启"
-              ggyy:title="电话归属地显示设置" />
+    <com.example.ggyy.phoneguard.view.SettingItemView
+        android:id="@+id/siv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ggyy:desc_off="归属地显示已经关闭"
+        ggyy:desc_on="归属地显示已经开启"
+        ggyy:title="电话归属地显示设置" />
 
-          <com.example.ggyy.phoneguard.view.SettingItemView
-              android:id="@+id/scv_address_style"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content" />
-          <com.example.ggyy.phoneguard.view.SettingItemView
-              android:id="@+id/scv_address_location"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content" />
+    <com.example.ggyy.phoneguard.view.SettingClickView
+        android:id="@+id/scv_address_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.ggyy.phoneguard.view.SettingClickView
+        android:id="@+id/scv_address_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.example.ggyy.phoneguard.view.SettingItemView
+        android:id="@+id/siv_callsafe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ggyy:desc_off="黑名单更新已关闭"
+        ggyy:desc_on="黑名单更新已开启"
+        ggyy:title="黑名单更新设置" />
 
 </LinearLayout>

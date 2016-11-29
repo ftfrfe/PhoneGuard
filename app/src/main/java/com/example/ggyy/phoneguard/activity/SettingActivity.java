@@ -10,7 +10,9 @@ import android.view.View.OnClickListener;
 
 import com.example.ggyy.phoneguard.R;
 import com.example.ggyy.phoneguard.service.AddressService;
+import com.example.ggyy.phoneguard.service.CallSafeService;
 import com.example.ggyy.phoneguard.utils.ServiceStatusUtils;
+import com.example.ggyy.phoneguard.view.SettingClickView;
 import com.example.ggyy.phoneguard.view.SettingItemView;
 
 
@@ -20,6 +22,9 @@ public class SettingActivity extends Activity {
     private SharedPreferences mPref;
     private SettingItemView sivUpdate;//设置升级选项框
     private SettingItemView sivAddress;// 设置地址归属
+    private SettingClickView scvAddressStyle;
+    private SettingItemView siv_callsafe;
+    private SettingClickView scvAddressLocation;// 修改归属地位置
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +41,70 @@ public class SettingActivity extends Activity {
     }
 
     private void initBlackView() {
+        siv_callsafe = (SettingItemView) findViewById(R.id.siv_callsafe);
+        // 根据归属地服务是否运行来更新checkbox
+        boolean serviceRunning = ServiceStatusUtils.isServiceRunning(this,
+                "com.itheima52.mobilesafe.service.CallSafeService");
+
+        if (serviceRunning) {
+            siv_callsafe.setChecked(true);
+        } else {
+            siv_callsafe.setChecked(false);
+        }
+
+        siv_callsafe.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (siv_callsafe.isChecked()) {
+                    siv_callsafe.setChecked(false);
+                    stopService(new Intent(SettingActivity.this,
+                            CallSafeService.class));// 停止归属地服务
+                } else {
+                    siv_callsafe.setChecked(true);
+                    startService(new Intent(SettingActivity.this,
+                            CallSafeService.class));// 开启归属地服务
+                }
+            }
+        });
 
     }
 
     private void initAddressLocation() {
+        scvAddressLocation = (SettingClickView) findViewById(R.id.scv_address_location);
+        scvAddressLocation.setTitle("归属地提示框显示位置");
+        scvAddressLocation.setDesc("设置归属地提示框的显示位置");
+
+        scvAddressLocation.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this,
+                        DragViewActivity.class));
+            }
+        });
 
     }
 
     private void initAddressStyle() {
+        scvAddressStyle = (SettingClickView) findViewById(R.id.scv_address_style);
+
+        scvAddressStyle.setTitle("归属地提示框风格");
+
+        int style = mPref.getInt("address_style", 0);// 读取保存的style
+        scvAddressStyle.setDesc(items[style]);
+
+        scvAddressStyle.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showSingleChooseDailog();
+            }
+        });
+
+    }
+
+    private void showSingleChooseDailog() {
 
     }
 
