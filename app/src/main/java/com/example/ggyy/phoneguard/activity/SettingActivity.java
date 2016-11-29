@@ -2,9 +2,11 @@ package com.example.ggyy.phoneguard.activity;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -105,6 +107,26 @@ public class SettingActivity extends Activity {
     }
 
     private void showSingleChooseDailog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // builder.setIcon(R.drawable.ic_launcher);
+        builder.setTitle("归属地提示框风格");
+
+        int style = mPref.getInt("address_style", 0);// 读取保存的style
+
+        builder.setSingleChoiceItems(items, style,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPref.edit().putInt("address_style", which).commit();// 保存选择的风格
+                        dialog.dismiss();// 让dialog消失
+
+                        scvAddressStyle.setDesc(items[which]);// 更新组合控件的描述信息
+                    }
+                });
+
+        builder.setNegativeButton("取消", null);
+        builder.show();
 
     }
 
